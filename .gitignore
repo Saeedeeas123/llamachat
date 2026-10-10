@@ -1,0 +1,11 @@
+.gradle/
+build/
+app/build/
+native/build-android/
+native/build-linux/
+native/llama_probe
+.idea/
+*.iml
+*.log
+local.properties
+.DS_Store

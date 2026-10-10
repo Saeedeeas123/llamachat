@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  The window theme only needs to remove the platform action bar: every visible surface is
+  drawn by Compose (Material3). The platform Material themes are used instead of the
+  Material Components themes so the app needs no extra dependency.
+-->
+<resources>
+    <style name="Theme.LlamaChat" parent="@android:style/Theme.Material.Light.NoActionBar" />
+</resources>
