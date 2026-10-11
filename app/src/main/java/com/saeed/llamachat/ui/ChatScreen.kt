@@ -22,6 +22,7 @@ import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
@@ -58,7 +59,11 @@ import com.saeed.llamachat.core.Role
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ChatScreen(onOpenModels: () -> Unit, onOpenSettings: () -> Unit) {
+fun ChatScreen(
+    onOpenModels: () -> Unit,
+    onOpenSettings: () -> Unit,
+    onOpenLog: () -> Unit,
+) {
     val engine = ChatController.engine
     val messages = ChatController.messages
     val streaming = ChatController.streamingText
@@ -115,6 +120,11 @@ fun ChatScreen(onOpenModels: () -> Unit, onOpenSettings: () -> Unit) {
                     }
                     IconButton(onClick = onOpenSettings) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
+                    }
+                    // The log is one tap away on purpose: it is the only way to see what the
+                    // engine is actually doing on this device.
+                    IconButton(onClick = onOpenLog) {
+                        Icon(Icons.Default.Info, contentDescription = "Log")
                     }
                 },
             )

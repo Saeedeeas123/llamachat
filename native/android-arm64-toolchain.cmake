@@ -40,5 +40,19 @@ set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
 # The host's clang does not know the NDK's libc++ header layout on its own, so add it.
 # Without this, <string>/<vector> resolve to the host's libstdc++ headers, which is wrong
 # for a bionic target.
-set(CMAKE_CXX_FLAGS_INIT "-fPIC -isystem ${_ndk_sysroot}/usr/include/c++/v1")
-set(CMAKE_C_FLAGS_INIT   "-fPIC")
+#
+# ARM feature baseline for the target device (Xiaomi zircon, Dimensity 7200 Ultra):
+#   cpu6-7 = Cortex-A715 (MIDR 0x411fd4d0), cpu0-5 = Cortex-A510 (MIDR 0x411fd461).
+# Both implement ARMv8.2 with dot-product and FP16, so this is safe on EVERY core.
+#
+# This matters because ggml gates its fast quantised kernels on the compiler macro
+# __ARM_FEATURE_DOTPROD (53 uses in ggml-cpu), and ggml only adds architecture flags when
+# GGML_NATIVE=ON — which cross-compiling forbids. Without this line the library is built for
+# plain armv8-a and the dot-product kernels are compiled out.
+#
+# i8mm is deliberately NOT enabled: the Cortex-A510 cores do not implement it, and ggml gates
+# 36 kernels on __ARM_FEATURE_MATMUL_INT. An illegal instruction on the little cores would be
+# far worse than being slower.
+set(LLAMA_ANDROID_ARCH "armv8.2-a+dotprod+fp16" CACHE STRING "ARM architecture baseline for the target")
+set(CMAKE_CXX_FLAGS_INIT "-fPIC -march=${LLAMA_ANDROID_ARCH} -isystem ${_ndk_sysroot}/usr/include/c++/v1")
+set(CMAKE_C_FLAGS_INIT   "-fPIC -march=${LLAMA_ANDROID_ARCH}")

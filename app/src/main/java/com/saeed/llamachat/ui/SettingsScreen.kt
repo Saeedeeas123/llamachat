@@ -13,6 +13,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -31,6 +32,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.saeed.llamachat.core.ChatController
+import com.saeed.llamacpp.LlamaCppLoadMode
 import java.util.Locale
 import kotlin.math.roundToInt
 
@@ -98,6 +100,33 @@ fun SettingsScreen(onBack: () -> Unit) {
                 valueText = "${settings.threads}",
                 onValue = { ChatController.updateSettings(settings.copy(threads = it)) },
             )
+
+            // The single biggest performance lever on this device, so it gets its own control
+            // instead of hiding in a default.
+            Column {
+                Text("Model loading", style = MaterialTheme.typography.bodyMedium)
+                Spacer(Modifier.height(4.dp))
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    LlamaCppLoadMode.entries.forEach { mode ->
+                        val select = {
+                            ChatController.updateSettings(settings.copy(loadMode = mode))
+                        }
+                        if (settings.loadMode == mode) {
+                            Button(onClick = select) { Text(mode.name) }
+                        } else {
+                            OutlinedButton(onClick = select) { Text(mode.name) }
+                        }
+                    }
+                }
+                Spacer(Modifier.height(4.dp))
+                Text(
+                    text = "RAM is fastest: the weights are read into memory and cannot be " +
+                        "evicted. Memory-map saves RAM equal to the model size, but for a model " +
+                        "on shared storage it is dramatically slower. Auto lets llama.cpp decide.",
+                    style = MaterialTheme.typography.labelSmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                )
+            }
 
             SectionTitle("Generation")
 

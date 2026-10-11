@@ -5,6 +5,7 @@
 #include "llama_core.h"
 
 #include <algorithm>
+#include <chrono>
 #include <cstdint>
 #include <cstdio>
 #include <cstring>
@@ -45,6 +46,25 @@ void log_router(ggml_log_level level, const char * text, void *) {
         g_log_sink(mapped, text);
     } else if (mapped >= LOG_LEVEL_WARN) {
         std::fputs(text, stderr);
+    }
+}
+
+/** Emits one of this layer's own messages through the same route as llama.cpp's. */
+void log_message(int level, const char * text) {
+    if (g_log_sink != nullptr) {
+        g_log_sink(level, text);
+    } else if (level >= LOG_LEVEL_WARN) {
+        std::fputs(text, stderr);
+        std::fputc('\n', stderr);
+    }
+}
+
+const char * load_mode_name(LoadMode mode) {
+    switch (mode) {
+        case LOAD_MODE_MMAP: return "mmap";
+        case LOAD_MODE_RAM:  return "ram";
+        case LOAD_MODE_AUTO:
+        default:             return "auto";
     }
 }
 
@@ -108,7 +128,8 @@ Session * load(const std::string & path,
                int n_ctx,
                int n_threads,
                int n_gpu_layers,
-               std::string & error) {
+               std::string & error,
+               LoadMode load_mode) {
     if (path.empty()) {
         error = "no model path given";
         return nullptr;
@@ -117,10 +138,16 @@ Session * load(const std::string & path,
 
     llama_model_params mparams = llama_model_default_params();
     mparams.n_gpu_layers = n_gpu_layers;
-    // AUTO memory-maps the model when the platform allows it and falls back to plain reads
-    // when it does not — which matters when the file lives on Android's FUSE-mounted
-    // shared storage.
-    mparams.load_mode = LLAMA_LOAD_MODE_AUTO;
+
+    // See the LoadMode documentation in llama_core.h. On Android this one choice can change
+    // throughput by orders of magnitude: memory-mapped weights on FUSE-mounted shared storage
+    // are reclaimable, and re-faulting them through the FUSE daemon is catastrophically slow.
+    switch (load_mode) {
+        case LOAD_MODE_MMAP: mparams.load_mode = LLAMA_LOAD_MODE_MMAP; break;
+        case LOAD_MODE_RAM:  mparams.load_mode = LLAMA_LOAD_MODE_NONE; break;
+        case LOAD_MODE_AUTO:
+        default:             mparams.load_mode = LLAMA_LOAD_MODE_AUTO; break;
+    }
 
     llama_model * model = llama_model_load_from_file(path.c_str(), mparams);
     if (model == nullptr) {
@@ -150,6 +177,15 @@ Session * load(const std::string & path,
     impl->vocab     = llama_model_get_vocab(model);
     impl->n_ctx     = static_cast<int>(llama_n_ctx(ctx));
     impl->n_threads = n_threads;
+
+    // Logged because this single choice can change throughput by orders of magnitude on a
+    // phone, and a slow run otherwise gives no clue which path was taken.
+    {
+        char line[224];
+        std::snprintf(line, sizeof(line), "load: ctx=%d threads=%d mode=%s", impl->n_ctx,
+                      impl->n_threads, load_mode_name(load_mode));
+        log_message(LOG_LEVEL_INFO, line);
+    }
     return reinterpret_cast<Session *>(impl);
 }
 
@@ -229,6 +265,8 @@ bool generate(Session * session,
     // Stateless between turns: drop whatever the previous turn left in the cache.
     llama_memory_clear(llama_get_memory(impl->ctx), true);
 
+    const auto prefill_started = std::chrono::steady_clock::now();
+
     const int n_batch = static_cast<int>(llama_n_batch(impl->ctx));
     for (int i = 0; i < static_cast<int>(tokens.size()); i += n_batch) {
         const int chunk = std::min(n_batch, static_cast<int>(tokens.size()) - i);
@@ -240,6 +278,8 @@ bool generate(Session * session,
             return false;
         }
     }
+
+    const auto prefill_finished = std::chrono::steady_clock::now();
 
     // Rebuilt per call so a settings change takes effect on the very next turn.
     llama_sampler * smpl = llama_sampler_chain_init(llama_sampler_chain_default_params());
@@ -261,6 +301,13 @@ bool generate(Session * session,
     out.clear();
     out.reserve(1024);
 
+    // Timings are logged rather than returned: on this device the app's own log file is the
+    // only diagnostic channel that exists (no logcat, no tombstones), and "it felt slow" is
+    // not a measurement.
+    int    generated_tokens = 0;
+    double callback_seconds = 0.0;
+    const auto decode_started = std::chrono::steady_clock::now();
+
     for (int produced = 0; produced < params.max_tokens; ++produced) {
         // llama_sampler_sample() calls llama_sampler_accept() internally in this revision,
         // so accepting the token again here would corrupt the penalty history.
@@ -275,9 +322,19 @@ bool generate(Session * session,
             break;  // a single piece larger than the buffer: treat as end of turn
         }
         out.append(piece_buf, n_piece);
+        ++generated_tokens;
 
-        if (callback != nullptr && !callback(piece_buf, n_piece, user_data)) {
-            break;
+        if (callback != nullptr) {
+            // Time spent inside the callback is measured separately: if the caller's sink is
+            // slow (a UI update per token, for instance) it throttles generation, and that is
+            // invisible from the outside.
+            const auto callback_started = std::chrono::steady_clock::now();
+            const bool keep_going = callback(piece_buf, n_piece, user_data);
+            callback_seconds += std::chrono::duration<double>(
+                    std::chrono::steady_clock::now() - callback_started).count();
+            if (!keep_going) {
+                break;
+            }
         }
 
         // Stop before running off the end of the context.
@@ -293,6 +350,25 @@ bool generate(Session * session,
     }
 
     llama_sampler_free(smpl);
+
+    const auto decode_finished = std::chrono::steady_clock::now();
+    const double prefill_seconds = std::chrono::duration<double>(
+            prefill_finished - prefill_started).count();
+    const double decode_seconds = std::chrono::duration<double>(
+            decode_finished - decode_started).count();
+
+    {
+        char line[352];
+        std::snprintf(line, sizeof(line),
+                      "inference: prefill %d tok in %.2fs (%.1f tok/s) | decode %d tok in %.2fs "
+                      "(%.1f tok/s) | %.2fs of the decode was spent in the callback",
+                      static_cast<int>(tokens.size()), prefill_seconds,
+                      prefill_seconds > 0.0 ? tokens.size() / prefill_seconds : 0.0,
+                      generated_tokens, decode_seconds,
+                      decode_seconds > 0.0 ? generated_tokens / decode_seconds : 0.0,
+                      callback_seconds);
+        log_message(LOG_LEVEL_INFO, line);
+    }
     return true;
 }
 

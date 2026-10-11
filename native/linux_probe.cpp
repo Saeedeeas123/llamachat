@@ -43,6 +43,8 @@ struct Args {
     int   turns    = 1;
     bool  show_prompt = false;
     bool  verbose     = false;
+    /** "auto" | "mmap" | "ram" — see llamacpp::LoadMode. */
+    std::string load_mode = "auto";
 };
 
 void usage() {
@@ -50,7 +52,7 @@ void usage() {
         "usage: llama_probe <model.gguf> [--ctx N] [--threads N] [--max N] [--temp F]\n"
         "                   [--topk N] [--topp F] [--penalty F] [--seed N]\n"
         "                   [--system TEXT] [--user TEXT] [--turns N]\n"
-        "                   [--show-prompt] [--verbose]\n");
+        "                   [--load-mode auto|mmap|ram] [--show-prompt] [--verbose]\n");
 }
 
 // Returns false when the option was not recognised.
@@ -76,6 +78,7 @@ bool parse(int argc, char ** argv, Args & a) {
         else if (arg == "--system")     a.system = next("--system");
         else if (arg == "--user")       a.user = next("--user");
         else if (arg == "--turns")      a.turns = std::atoi(next("--turns"));
+        else if (arg == "--load-mode")  a.load_mode = next("--load-mode");
         else if (arg == "--show-prompt") a.show_prompt = true;
         else if (arg == "--verbose")    a.verbose = true;
         else if (!arg.empty() && arg[0] == '-') {
@@ -101,7 +104,9 @@ bool print_and_count(const char * utf8, int len, void *) {
 }
 
 void stderr_sink(int level, const char * text) {
-    if (level >= llamacpp::LOG_LEVEL_WARN) {
+    // The core reports inference timing at INFO level; that line is the whole point of a
+    // benchmark run, so it is printed even though INFO is otherwise suppressed.
+    if (level >= llamacpp::LOG_LEVEL_WARN || std::strncmp(text, "inference:", 10) == 0) {
         std::fputs(text, stderr);
     }
 }
@@ -137,7 +142,15 @@ int main(int argc, char ** argv) {
 
     std::string error;
     auto load_start = std::chrono::steady_clock::now();
-    llamacpp::Session * session = llamacpp::load(a.model, a.ctx, a.threads, 0, error);
+    llamacpp::LoadMode mode = llamacpp::LOAD_MODE_AUTO;
+    if (a.load_mode == "ram") {
+        mode = llamacpp::LOAD_MODE_RAM;
+    } else if (a.load_mode == "mmap") {
+        mode = llamacpp::LOAD_MODE_MMAP;
+    }
+    std::printf("load mode       : %s\n", a.load_mode.c_str());
+
+    llamacpp::Session * session = llamacpp::load(a.model, a.ctx, a.threads, 0, error, mode);
     if (session == nullptr) {
         std::fprintf(stderr, "FAIL: load: %s\n", error.c_str());
         return 1;

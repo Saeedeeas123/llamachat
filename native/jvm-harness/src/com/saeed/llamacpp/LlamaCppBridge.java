@@ -15,7 +15,8 @@ public final class LlamaCppBridge {
 
     public static native String nativeVersion();
 
-    public static native long nativeLoadModel(String path, int context, int threads, int gpuLayers);
+    public static native long nativeLoadModel(
+            String path, int context, int threads, int gpuLayers, int loadMode);
 
     public static native String nativeDescribe(long handle);
 

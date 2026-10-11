@@ -32,7 +32,8 @@ public final class HarnessMain {
         System.out.println("llama.cpp : " + LlamaCppBridge.nativeVersion());
 
         final long started = System.currentTimeMillis();
-        final long handle = LlamaCppBridge.nativeLoadModel(model, 2048, 6, 0);
+        // loadMode 2 == RAM: the default the app now uses, so the harness exercises the same path.
+        final long handle = LlamaCppBridge.nativeLoadModel(model, 2048, 6, 0, 2);
         System.out.printf("loaded    : %.2fs%n", (System.currentTimeMillis() - started) / 1000.0);
         System.out.println("describe  : " + LlamaCppBridge.nativeDescribe(handle));
         if (handle == 0L) {

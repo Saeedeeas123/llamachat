@@ -39,6 +39,13 @@ sealed interface EngineState {
  */
 object ChatController {
 
+    /**
+     * Streaming updates are coalesced to at most one UI refresh per this many milliseconds.
+     * Posting a recomposition per token made the main thread fight the generation threads for
+     * the two big cores this device has.
+     */
+    private const val UI_UPDATE_INTERVAL_MS = 40L
+
     private val worker = Executors.newSingleThreadExecutor { runnable ->
         Thread(runnable, "llama-worker").apply { isDaemon = true }
     }
@@ -198,6 +205,7 @@ object ChatController {
             contextSize = settings.contextSize,
             threads = settings.threads,
             gpuLayers = 0,
+            loadMode = settings.loadMode,
         )
 
         engine = EngineState.Loading(displayName)
@@ -291,13 +299,24 @@ object ChatController {
             // Accumulates raw UTF-8 and re-decodes the whole stream, because one token can
             // end mid-character. The string returned by generate() is authoritative.
             var tokensSeen = 0
+            var lastUiUpdate = 0L
             val sink = object : LlamaCppTokenSink {
                 private val buffer = ByteArrayOutputStream()
                 override fun onToken(utf8: ByteArray): Boolean {
                     buffer.write(utf8)
                     tokensSeen++
-                    val decoded = String(buffer.toByteArray(), Charsets.UTF_8)
-                    main.post { streamingText = decoded }
+
+                    // UI updates are coalesced rather than posted per token. This SoC has only
+                    // two big cores, and a recomposition per token made the main thread compete
+                    // with the generation threads for them. ~25 updates a second is already
+                    // faster than anyone can read, and nothing is lost: the finished text comes
+                    // from generate()'s return value, not from this stream.
+                    val now = System.currentTimeMillis()
+                    if (now - lastUiUpdate >= UI_UPDATE_INTERVAL_MS) {
+                        lastUiUpdate = now
+                        val decoded = String(buffer.toByteArray(), Charsets.UTF_8)
+                        main.post { streamingText = decoded }
+                    }
                     return cancelRequested
                 }
             }

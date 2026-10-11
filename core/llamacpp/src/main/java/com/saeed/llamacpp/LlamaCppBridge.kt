@@ -25,9 +25,16 @@ object LlamaCppBridge {
 
     /**
      * Loads a GGUF model and creates its context.
+     * @param loadMode a [LlamaCppLoadMode] ordinal value; see that enum for why it matters.
      * @return an opaque session handle; throws RuntimeException with a readable message.
      */
-    external fun nativeLoadModel(path: String, context: Int, threads: Int, gpuLayers: Int): Long
+    external fun nativeLoadModel(
+        path: String,
+        context: Int,
+        threads: Int,
+        gpuLayers: Int,
+        loadMode: Int,
+    ): Long
 
     /** Human-readable description of the loaded model, or null for handle 0. */
     external fun nativeDescribe(handle: Long): String?

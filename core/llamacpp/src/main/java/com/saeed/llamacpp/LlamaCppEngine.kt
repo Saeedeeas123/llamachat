@@ -51,6 +51,7 @@ class LlamaCppEngine : AutoCloseable {
                 config.contextSize,
                 config.threads,
                 config.gpuLayers,
+                config.loadMode.nativeValue,
             )
         } catch (error: UnsatisfiedLinkError) {
             throw nativeUnavailable(error)

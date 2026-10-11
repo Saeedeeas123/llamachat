@@ -1,6 +1,30 @@
 package com.saeed.llamacpp
 
 /**
+ * How the model weights are brought into memory.
+ *
+ * This is not a micro-optimisation on Android. With [MMAP] the weights are file-backed pages,
+ * and the kernel may evict them at any time. When the model lives on FUSE-mounted shared
+ * storage (`/storage/emulated/0`) every evicted page has to be faulted back in through the
+ * FUSE daemon, which turns a fast model into a useless one — the reported symptom was a
+ * 270M model taking about a minute to write four words.
+ *
+ * [RAM] reads the weights into ordinary memory that cannot be reclaimed that way. It costs
+ * RAM equal to the model size, which for a small model is nothing and for a multi-gigabyte
+ * model is the trade you are deliberately making.
+ */
+enum class LlamaCppLoadMode(val nativeValue: Int) {
+    /** Let llama.cpp decide. It memory-maps whenever the platform allows it. */
+    AUTO(0),
+
+    /** Force memory-mapping. Lowest RAM use, but the pages are reclaimable. */
+    MMAP(1),
+
+    /** Read the weights into RAM. More memory, but it cannot thrash. */
+    RAM(2),
+}
+
+/**
  * Context-creation settings.
  *
  * These are fixed for the lifetime of a loaded model — changing them means loading again,
@@ -13,6 +37,12 @@ data class LlamaCppConfig(
     val threads: Int = 4,
     /** Layers to offload to a GPU. Always 0 for this build: it is CPU-only. */
     val gpuLayers: Int = 0,
+    /**
+     * Defaults to [LlamaCppLoadMode.RAM] rather than AUTO on purpose: AUTO memory-maps, and
+     * memory-mapped weights on shared storage are the single biggest cause of an Android
+     * build of llama.cpp appearing to be broken.
+     */
+    val loadMode: LlamaCppLoadMode = LlamaCppLoadMode.RAM,
     /**
      * Refuse [LlamaCppEngine.load] and [LlamaCppEngine.generate] on the main thread.
      * Both block for seconds, so calling them there freezes the UI. Turn this off only in

@@ -195,12 +195,15 @@ Java_com_saeed_llamacpp_LlamaCppBridge_nativeLoadModel(JNIEnv * env, jclass,
                                                           jstring j_path,
                                                           jint n_ctx,
                                                           jint n_threads,
-                                                          jint n_gpu_layers) {
+                                                          jint n_gpu_layers,
+                                                          jint load_mode) {
     install_log_sink_once();
 
     const std::string path = to_std_string(env, j_path);
     std::string error;
-    llamacpp::Session * session = llamacpp::load(path, n_ctx, n_threads, n_gpu_layers, error);
+    llamacpp::Session * session = llamacpp::load(
+            path, n_ctx, n_threads, n_gpu_layers, error,
+            static_cast<llamacpp::LoadMode>(load_mode));
     if (session == nullptr) {
         throw_runtime(env, error);
         return 0;

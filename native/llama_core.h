@@ -46,6 +46,26 @@ enum LogLevel { LOG_LEVEL_DEBUG = 0, LOG_LEVEL_INFO = 1, LOG_LEVEL_WARN = 2, LOG
 void set_log_sink(void (*sink)(int level, const char * text));
 
 /**
+ * How the model weights are brought in.
+ *
+ * This matters far more on Android than on a desktop. With MMAP the weights are file-backed
+ * pages, which the kernel is free to evict under memory pressure; on a phone — especially
+ * with the model on FUSE-mounted shared storage — they get evicted and re-faulted, and every
+ * fault goes through the FUSE daemon. The result is not "slightly slower", it is hundreds of
+ * times slower, and it looks like the model is fine but the phone has gone to sleep.
+ *
+ * RAM copies the weights into anonymous memory, which cannot be reclaimed that way.
+ */
+enum LoadMode {
+    /** Let llama.cpp decide (it memory-maps when the platform allows it). */
+    LOAD_MODE_AUTO = 0,
+    /** Force memory-mapping: lowest RAM use, but the pages are reclaimable. */
+    LOAD_MODE_MMAP = 1,
+    /** Read the weights into RAM: uses more memory, but cannot thrash. */
+    LOAD_MODE_RAM = 2,
+};
+
+/**
  * Loads a GGUF model and creates its context.
  * @return a session, or nullptr with [error] filled in.
  */
@@ -53,7 +73,8 @@ Session * load(const std::string & path,
                int n_ctx,
                int n_threads,
                int n_gpu_layers,
-               std::string & error);
+               std::string & error,
+               LoadMode load_mode = LOAD_MODE_AUTO);
 
 /** Short human-readable description of a loaded session. */
 std::string describe(Session * session);

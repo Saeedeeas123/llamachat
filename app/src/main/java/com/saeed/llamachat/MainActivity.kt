@@ -1,5 +1,6 @@
 package com.saeed.llamachat
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.BackHandler
@@ -12,6 +13,7 @@ import androidx.compose.runtime.setValue
 import com.saeed.llamachat.core.ChatController
 import com.saeed.llamachat.ui.ChatScreen
 import com.saeed.llamachat.ui.LlamaChatTheme
+import com.saeed.llamachat.ui.LogScreen
 import com.saeed.llamachat.ui.ModelsScreen
 import com.saeed.llamachat.ui.SettingsScreen
 
@@ -49,6 +51,7 @@ class MainActivity : ComponentActivity() {
                     Screen.Chat -> ChatScreen(
                         onOpenModels = { screen = Screen.Models },
                         onOpenSettings = { screen = Screen.Settings },
+                        onOpenLog = { screen = Screen.Log },
                     )
 
                     Screen.Models -> ModelsScreen(
@@ -60,6 +63,13 @@ class MainActivity : ComponentActivity() {
                     )
 
                     Screen.Settings -> SettingsScreen(onBack = { screen = Screen.Chat })
+
+                    Screen.Log -> LogScreen(
+                        onBack = { screen = Screen.Chat },
+                        onShare = { intent ->
+                            startActivity(Intent.createChooser(intent, "Share log"))
+                        },
+                    )
                 }
             }
         }
@@ -79,4 +89,4 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-private enum class Screen { Chat, Models, Settings }
+private enum class Screen { Chat, Models, Settings, Log }
