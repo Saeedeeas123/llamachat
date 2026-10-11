@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "LlamaChat"
 include(":app")
+// The reusable, app-agnostic engine. Kept as a separate Gradle module so it can be lifted
+// into any app (or shipped as an AAR) without dragging the chat UI along.
+include(":core:llamacpp")

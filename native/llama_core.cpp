@@ -14,7 +14,7 @@
 
 #include "llama.h"
 
-namespace llamachat {
+namespace llamacpp {
 
 namespace {
 
@@ -304,4 +304,4 @@ void release(Session * session) {
     delete impl;
 }
 
-}  // namespace llamachat
+}  // namespace llamacpp

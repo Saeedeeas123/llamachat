@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Intentionally empty. A library module must not force permissions on its consumers:
+  MANAGE_EXTERNAL_STORAGE (for scanning shared storage) and READ_EXTERNAL_STORAGE belong in
+  the consuming app's manifest, and are only needed if the app uses LlamaCppModelStore.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" />

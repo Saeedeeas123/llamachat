@@ -101,7 +101,7 @@ bool print_and_count(const char * utf8, int len, void *) {
 }
 
 void stderr_sink(int level, const char * text) {
-    if (level >= llamachat::LOG_LEVEL_WARN) {
+    if (level >= llamacpp::LOG_LEVEL_WARN) {
         std::fputs(text, stderr);
     }
 }
@@ -130,20 +130,20 @@ int main(int argc, char ** argv) {
         return 2;
     }
 
-    llamachat::set_log_sink(stderr_sink);
+    llamacpp::set_log_sink(stderr_sink);
 
-    std::printf("llama.cpp build : %s\n", llamachat::version().c_str());
+    std::printf("llama.cpp build : %s\n", llamacpp::version().c_str());
     std::printf("model           : %s\n", a.model.c_str());
 
     std::string error;
     auto load_start = std::chrono::steady_clock::now();
-    llamachat::Session * session = llamachat::load(a.model, a.ctx, a.threads, 0, error);
+    llamacpp::Session * session = llamacpp::load(a.model, a.ctx, a.threads, 0, error);
     if (session == nullptr) {
         std::fprintf(stderr, "FAIL: load: %s\n", error.c_str());
         return 1;
     }
     std::printf("loaded in       : %.2fs\n", seconds_since(load_start));
-    std::printf("describe        : %s\n", llamachat::describe(session).c_str());
+    std::printf("describe        : %s\n", llamacpp::describe(session).c_str());
 
     std::vector<std::string> roles, contents;
     if (!a.system.empty()) {
@@ -153,7 +153,7 @@ int main(int argc, char ** argv) {
     roles.emplace_back("user");
     contents.push_back(a.user);
 
-    llamachat::GenParams params;
+    llamacpp::GenParams params;
     params.max_tokens     = a.max;
     params.temperature    = a.temp;
     params.top_k          = a.topk;
@@ -171,7 +171,7 @@ int main(int argc, char ** argv) {
 
         std::printf("\n--- turn %d ---\n", turn);
         auto start = std::chrono::steady_clock::now();
-        const bool ok = llamachat::generate(session, roles, contents, params,
+        const bool ok = llamacpp::generate(session, roles, contents, params,
                                             print_and_count, nullptr,
                                             out, error,
                                             a.show_prompt ? &prompt : nullptr);
@@ -196,6 +196,6 @@ int main(int argc, char ** argv) {
     std::printf("\n=== %d/%d turns produced text, %d empty ===\n",
                 produced, a.turns, empty);
 
-    llamachat::release(session);
+    llamacpp::release(session);
     return (produced == a.turns) ? 0 : 1;
 }

@@ -26,7 +26,7 @@ JOBS="${JOBS:-6}"
 SYSROOT="$NDK/toolchains/llvm/prebuilt/linux-x86_64/sysroot"
 TRIPLE="aarch64-linux-android${API}"
 BUILD_DIR="$HERE/build-android"
-OUT_DIR="$ROOT/app/src/main/jniLibs/arm64-v8a"
+OUT_DIR="$ROOT/core/llamacpp/src/main/jniLibs/arm64-v8a"
 OUT_SO="$OUT_DIR/libllama_jni.so"
 
 if [ ! -f "$LLAMA_SRC/include/llama.h" ]; then
@@ -100,4 +100,4 @@ readelf -h "$OUT_SO" | grep -E 'Class|Machine|Type'
 echo "--- dynamic dependencies (must be Android libs, never glibc) ---"
 readelf -d "$OUT_SO" | grep -E 'NEEDED|SONAME'
 echo "--- exported JNI entry points ---"
-readelf --dyn-syms -W "$OUT_SO" | grep 'Java_com_saeed_llamachat' || true
+readelf --dyn-syms -W "$OUT_SO" | grep 'Java_com_saeed_llamacpp' || true

@@ -1,4 +1,4 @@
-package com.saeed.llamachat.core
+package com.saeed.llamacpp
 
 import android.content.Context
 import android.content.Intent
@@ -10,18 +10,20 @@ import android.provider.Settings
 import java.io.File
 
 /**
- * Finds and manages GGUF model files.
+ * Finds and manages GGUF files on the device.
  *
- * Two loading paths exist on purpose:
+ * Two paths exist on purpose:
  *
  *  - Models already on shared storage are loaded **in place**. llama.cpp needs a real
  *    filesystem path, and copying a multi-gigabyte file into app storage would double its
- *    footprint. This path needs MANAGE_EXTERNAL_STORAGE.
+ *    footprint. This path needs MANAGE_EXTERNAL_STORAGE in the consuming app's manifest.
  *  - Models chosen through the system file picker are **copied** into app-private storage.
- *    That works with no permission at all, and is the fallback when the user does not want
- *    to hand out all-files access.
+ *    That works with no permission at all.
+ *
+ * Optional: an app that manages its own model files can ignore this class entirely and hand
+ * [LlamaCppEngine.load] a path it obtained some other way.
  */
-class ModelStore(private val context: Context) {
+class LlamaCppModelStore(private val context: Context) {
 
     data class ModelFile(val file: File, val imported: Boolean) {
         val name: String get() = file.name
@@ -30,7 +32,7 @@ class ModelStore(private val context: Context) {
     }
 
     private val importedDir: File
-        get() = File(context.filesDir, "models").apply { if (!exists()) mkdirs() }
+        get() = File(context.filesDir, IMPORT_DIR).apply { if (!exists()) mkdirs() }
 
     fun hasAllFilesAccess(): Boolean =
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
@@ -39,13 +41,14 @@ class ModelStore(private val context: Context) {
             true
         }
 
+    /** Intent for the system screen where the user grants all-files access. */
     fun allFilesAccessIntent(): Intent =
         Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION)
             .setData(Uri.parse("package:${context.packageName}"))
 
     fun importedModels(): List<ModelFile> =
-        importedDir.listFiles { f -> f.isFile && isGguf(f) }
-            ?.map { ModelFile(it, true) }
+        importedDir.listFiles { file -> file.isFile && isGguf(file) }
+            ?.map { ModelFile(it, imported = true) }
             ?.sortedBy { it.name.lowercase() }
             ?: emptyList()
 
@@ -53,8 +56,8 @@ class ModelStore(private val context: Context) {
      * Blocking directory walk. Run it off the main thread.
      *
      * The search is deliberately bounded: a handful of well-known folders, two levels deep,
-     * with the system's own data directories skipped. Scanning the whole of shared storage
-     * would take minutes and is never what the user means.
+     * with the system's own data directories skipped. Walking all of shared storage takes
+     * minutes and is never what the user means.
      */
     fun scan(): List<ModelFile> {
         val found = LinkedHashMap<String, ModelFile>()
@@ -68,66 +71,83 @@ class ModelStore(private val context: Context) {
             Environment.getExternalStorageDirectory(),
             context.getExternalFilesDir(null),
         )
-        val knownNames = listOf("Models", "models", "Model", "gguf", "GGUF", "Download", "Downloads", "Documents")
+        val knownFolders = listOf(
+            "Models", "models", "Model", "gguf", "GGUF",
+            "Download", "Downloads", "Documents",
+        )
 
         for (root in roots) {
-            for (name in knownNames) {
-                val dir = File(root, name)
-                if (dir.isDirectory) walk(dir, 0, MAX_DEPTH, found)
+            for (name in knownFolders) {
+                val directory = File(root, name)
+                if (directory.isDirectory) {
+                    walk(directory, 0, found)
+                }
             }
         }
 
         return found.values.sortedBy { it.name.lowercase() }
     }
 
-    private fun walk(dir: File, depth: Int, maxDepth: Int, out: MutableMap<String, ModelFile>) {
-        if (depth > maxDepth || out.size >= MAX_RESULTS) return
-        val children = dir.listFiles() ?: return
+    private fun walk(directory: File, depth: Int, out: MutableMap<String, ModelFile>) {
+        if (depth > MAX_DEPTH || out.size >= MAX_RESULTS) return
+
+        val children = directory.listFiles() ?: return
         for (child in children) {
             if (out.size >= MAX_RESULTS) return
             when {
                 child.isDirectory -> {
-                    // "Android" holds app data and is never interesting; hidden dirs are noise.
+                    // "Android" holds app-private data and is never interesting here.
                     if (!child.name.startsWith(".") && child.name != "Android") {
-                        walk(child, depth + 1, maxDepth, out)
+                        walk(child, depth + 1, out)
                     }
                 }
+
                 child.isFile && isGguf(child) -> {
-                    out[child.absolutePath] = ModelFile(child, child.absolutePath.startsWith(importedDir.absolutePath))
+                    val imported = child.absolutePath.startsWith(importedDir.absolutePath)
+                    out[child.absolutePath] = ModelFile(child, imported)
                 }
             }
         }
     }
 
-    /** Display name of a content:// URI, as reported by the document provider. */
+    /** Display name of a `content://` URI, as reported by the document provider. */
     fun displayName(uri: Uri): String? = try {
         context.contentResolver
             .query(uri, arrayOf(OpenableColumns.DISPLAY_NAME), null, null, null)
             ?.use { cursor -> if (cursor.moveToFirst()) cursor.getString(0) else null }
-    } catch (t: Throwable) {
+    } catch (error: Throwable) {
         null
     }
 
     /**
      * Copies a picked document into app-private storage.
-     * Writes to a `.part` file first so an interrupted copy can never look like a model.
+     *
+     * Writes to a `.part` file first and renames at the end, so an interrupted copy can never
+     * leave something that looks like a usable model.
      */
-    fun importFromUri(uri: Uri, onProgress: (Long) -> Unit): File {
+    fun importFromUri(uri: Uri, onProgress: (Long) -> Unit = {}): File {
         val rawName = displayName(uri) ?: uri.lastPathSegment ?: "model.gguf"
         val safeName = sanitize(rawName)
-        val target = File(importedDir, if (safeName.lowercase().endsWith(".gguf")) safeName else "$safeName.gguf")
+        val target = File(
+            importedDir,
+            if (safeName.lowercase().endsWith(GGUF_EXTENSION)) safeName else "$safeName$GGUF_EXTENSION",
+        )
         val part = File(importedDir, "${target.name}.part")
 
-        val input = context.contentResolver.openInputStream(uri)
-            ?: throw IllegalStateException("the selected file could not be opened")
-        input.use { source ->
-            part.outputStream().use { sink ->
+        val source = context.contentResolver.openInputStream(uri)
+            ?: throw LlamaCppException(
+                LlamaCppException.Kind.MODEL_UNREADABLE,
+                "the selected file could not be opened",
+            )
+
+        source.use { input ->
+            part.outputStream().use { output ->
                 val buffer = ByteArray(1 shl 20)
                 var total = 0L
                 while (true) {
-                    val read = source.read(buffer)
+                    val read = input.read(buffer)
                     if (read <= 0) break
-                    sink.write(buffer, 0, read)
+                    output.write(buffer, 0, read)
                     total += read
                     onProgress(total)
                 }
@@ -143,18 +163,18 @@ class ModelStore(private val context: Context) {
 
     fun delete(model: ModelFile): Boolean = model.file.delete()
 
-    private fun isGguf(file: File) = file.name.lowercase().endsWith(".gguf")
+    private fun isGguf(file: File) = file.name.lowercase().endsWith(GGUF_EXTENSION)
 
     /** Keeps a provider-supplied name from escaping the models directory. */
-    private fun sanitize(name: String): String {
-        val cleaned = name
-            .map { if (it == '/' || it == '\\' || it == ':' || it == '\u0000') '_' else it }
-            .joinToString("")
-            .trim()
-        return cleaned.ifEmpty { "model.gguf" }
-    }
+    private fun sanitize(name: String): String = name
+        .map { if (it == '/' || it == '\\' || it == ':' || it == '\u0000') '_' else it }
+        .joinToString("")
+        .trim()
+        .ifEmpty { "model$GGUF_EXTENSION" }
 
     private companion object {
+        const val IMPORT_DIR = "llamacpp-models"
+        const val GGUF_EXTENSION = ".gguf"
         const val MAX_DEPTH = 2
         const val MAX_RESULTS = 300
     }

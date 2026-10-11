@@ -39,7 +39,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.saeed.llamachat.core.ChatController
 import com.saeed.llamachat.core.EngineState
-import com.saeed.llamachat.core.ModelStore
+import com.saeed.llamacpp.LlamaCppModelStore
 import java.util.Locale
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -211,7 +211,7 @@ private fun EmptyCard(hasAccess: Boolean) {
 }
 
 @Composable
-private fun ModelRow(model: ModelStore.ModelFile, isLoaded: Boolean, busy: Boolean) {
+private fun ModelRow(model: LlamaCppModelStore.ModelFile, isLoaded: Boolean, busy: Boolean) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

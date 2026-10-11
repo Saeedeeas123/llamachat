@@ -1,0 +1,446 @@
+[
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -o ggml/src/CMakeFiles/ggml-base.dir/ggml.c.o -c /root/projects/llama.cpp/ggml/src/ggml.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml.c",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/ggml.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -o ggml/src/CMakeFiles/ggml-base.dir/ggml-alloc.c.o -c /root/projects/llama.cpp/ggml/src/ggml-alloc.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-alloc.c",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-alloc.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/ggml-backend.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-backend.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-backend.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-backend.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/ggml-backend-meta.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-backend-meta.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-backend-meta.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-backend-meta.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/ggml-opt.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-opt.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-opt.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-opt.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/ggml-threading.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-threading.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-threading.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-threading.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -o ggml/src/CMakeFiles/ggml-base.dir/ggml-quants.c.o -c /root/projects/llama.cpp/ggml/src/ggml-quants.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-quants.c",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/ggml-quants.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llamachat/native/build-linux-pic/ggml/src -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml-base.dir/gguf.cpp.o -c /root/projects/llama.cpp/ggml/src/gguf.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/gguf.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-base.dir/gguf.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml.dir/ggml-backend-dl.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-backend-dl.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-backend-dl.cpp",
+  "output": "ggml/src/CMakeFiles/ggml.dir/ggml-backend-dl.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o ggml/src/CMakeFiles/ggml.dir/ggml-backend-reg.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-backend-reg.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-backend-reg.cpp",
+  "output": "ggml/src/CMakeFiles/ggml.dir/ggml-backend-reg.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.c.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.c",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/ggml-cpu.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ggml-cpu.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/repack.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/repack.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/repack.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/repack.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/hbm.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/hbm.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/hbm.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/hbm.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/quants.c.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/quants.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/quants.c",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/quants.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/traits.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/traits.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/traits.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/traits.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/amx.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/amx/amx.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/amx/amx.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/amx.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/mmq.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/amx/mmq.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/amx/mmq.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/amx/mmq.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/tiled/tiled.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/tiled/tiled.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/tiled/tiled.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/tiled/tiled.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/tiled/tiled-kernel.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/tiled/tiled-kernel.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/tiled/tiled-kernel.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/tiled/tiled-kernel.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/binary-ops.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/binary-ops.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/binary-ops.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/binary-ops.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/unary-ops.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/unary-ops.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/unary-ops.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/unary-ops.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/vec.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/vec.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/vec.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/vec.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ops.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/ops.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/ops.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/ops.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu11 -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/quants.c.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/arch/arm/quants.c",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/arch/arm/quants.c",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/quants.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_SCHED_MAX_COPIES=4 -DGGML_USE_CPU_REPACK -D_GNU_SOURCE -D_XOPEN_SOURCE=600 -I/root/projects/llama.cpp/ggml/src/.. -I/root/projects/llama.cpp/ggml/src/. -I/root/projects/llama.cpp/ggml/src/ggml-cpu -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -std=gnu++17 -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -mcpu=native -o ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/repack.cpp.o -c /root/projects/llama.cpp/ggml/src/ggml-cpu/arch/arm/repack.cpp",
+  "file": "/root/projects/llama.cpp/ggml/src/ggml-cpu/arch/arm/repack.cpp",
+  "output": "ggml/src/CMakeFiles/ggml-cpu.dir/ggml-cpu/arch/arm/repack.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_9_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_9_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_9_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_9_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_8_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_8_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_8_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_8_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_7_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_7_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_7_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_7_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_6_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_6_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_6_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_6_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_5_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_5_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_5_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_5_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_4_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_4_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_4_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_4_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_3_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_3_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_3_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_3_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_2_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_2_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_2_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_2_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_1_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_1_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_1_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_1_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/Unity/unity_0_cxx.cxx.o -c /root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_0_cxx.cxx",
+  "file": "/root/projects/llamachat/native/build-linux-pic/src/CMakeFiles/llama.dir/Unity/unity_0_cxx.cxx",
+  "output": "src/CMakeFiles/llama.dir/Unity/unity_0_cxx.cxx.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama.cpp.o -c /root/projects/llama.cpp/src/llama.cpp",
+  "file": "/root/projects/llama.cpp/src/llama.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-adapter.cpp.o -c /root/projects/llama.cpp/src/llama-adapter.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-adapter.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-adapter.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-arch.cpp.o -c /root/projects/llama.cpp/src/llama-arch.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-arch.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-arch.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-batch.cpp.o -c /root/projects/llama.cpp/src/llama-batch.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-batch.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-batch.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-chat.cpp.o -c /root/projects/llama.cpp/src/llama-chat.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-chat.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-chat.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-context.cpp.o -c /root/projects/llama.cpp/src/llama-context.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-context.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-context.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-cparams.cpp.o -c /root/projects/llama.cpp/src/llama-cparams.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-cparams.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-cparams.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-grammar.cpp.o -c /root/projects/llama.cpp/src/llama-grammar.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-grammar.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-grammar.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-graph.cpp.o -c /root/projects/llama.cpp/src/llama-graph.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-graph.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-graph.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-hparams.cpp.o -c /root/projects/llama.cpp/src/llama-hparams.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-hparams.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-hparams.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-impl.cpp.o -c /root/projects/llama.cpp/src/llama-impl.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-impl.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-impl.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-io.cpp.o -c /root/projects/llama.cpp/src/llama-io.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-io.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-io.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache-iswa.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache-iswa.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache-iswa.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache-iswa.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache-dsa.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache-dsa.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache-dsa.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache-dsa.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache-dsa-iswa.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache-dsa-iswa.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache-dsa-iswa.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache-dsa-iswa.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache-msa.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache-msa.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache-msa.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache-msa.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-kv-cache-dsv4.cpp.o -c /root/projects/llama.cpp/src/llama-kv-cache-dsv4.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-kv-cache-dsv4.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-kv-cache-dsv4.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-memory.cpp.o -c /root/projects/llama.cpp/src/llama-memory.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-memory.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-memory.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-moe-cache.cpp.o -c /root/projects/llama.cpp/src/llama-moe-cache.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-moe-cache.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-moe-cache.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-memory-hybrid.cpp.o -c /root/projects/llama.cpp/src/llama-memory-hybrid.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-memory-hybrid.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-memory-hybrid.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-memory-hybrid-iswa.cpp.o -c /root/projects/llama.cpp/src/llama-memory-hybrid-iswa.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-memory-hybrid-iswa.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-memory-hybrid-iswa.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-memory-hybrid-idx.cpp.o -c /root/projects/llama.cpp/src/llama-memory-hybrid-idx.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-memory-hybrid-idx.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-memory-hybrid-idx.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-memory-recurrent.cpp.o -c /root/projects/llama.cpp/src/llama-memory-recurrent.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-memory-recurrent.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-memory-recurrent.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-mmap.cpp.o -c /root/projects/llama.cpp/src/llama-mmap.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-mmap.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-mmap.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-model-loader.cpp.o -c /root/projects/llama.cpp/src/llama-model-loader.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-model-loader.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-model-loader.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-model-saver.cpp.o -c /root/projects/llama.cpp/src/llama-model-saver.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-model-saver.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-model-saver.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-model.cpp.o -c /root/projects/llama.cpp/src/llama-model.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-model.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-model.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-quant.cpp.o -c /root/projects/llama.cpp/src/llama-quant.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-quant.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-quant.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-sampler.cpp.o -c /root/projects/llama.cpp/src/llama-sampler.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-sampler.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-sampler.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/llama-vocab.cpp.o -c /root/projects/llama.cpp/src/llama-vocab.cpp",
+  "file": "/root/projects/llama.cpp/src/llama-vocab.cpp",
+  "output": "src/CMakeFiles/llama.dir/llama-vocab.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/unicode-data.cpp.o -c /root/projects/llama.cpp/src/unicode-data.cpp",
+  "file": "/root/projects/llama.cpp/src/unicode-data.cpp",
+  "output": "src/CMakeFiles/llama.dir/unicode-data.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -DGGML_USE_CPU -I/root/projects/llama.cpp/src/. -I/root/projects/llamachat/native/build-linux-pic/src -I/root/projects/llama.cpp/src/../include -I/root/projects/llama.cpp/ggml/src/../include -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o src/CMakeFiles/llama.dir/unicode.cpp.o -c /root/projects/llama.cpp/src/unicode.cpp",
+  "file": "/root/projects/llama.cpp/src/unicode.cpp",
+  "output": "src/CMakeFiles/llama.dir/unicode.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -I/root/projects/llama.cpp/vendor/hash/.. -I/root/projects/llama.cpp/vendor/hash/. -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -o vendor/hash/CMakeFiles/vendor-hash.dir/hash.cpp.o -c /root/projects/llama.cpp/vendor/hash/hash.cpp",
+  "file": "/root/projects/llama.cpp/vendor/hash/hash.cpp",
+  "output": "vendor/hash/CMakeFiles/vendor-hash.dir/hash.cpp.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -I/root/projects/llama.cpp/vendor/hash/.. -I/root/projects/llama.cpp/vendor/hash/. -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -w -o vendor/hash/CMakeFiles/vendor-hash.dir/xxhash/xxhash.c.o -c /root/projects/llama.cpp/vendor/hash/xxhash/xxhash.c",
+  "file": "/root/projects/llama.cpp/vendor/hash/xxhash/xxhash.c",
+  "output": "vendor/hash/CMakeFiles/vendor-hash.dir/xxhash/xxhash.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/c++ -I/root/projects/llama.cpp/vendor/hash/.. -I/root/projects/llama.cpp/vendor/hash/. -x c++ -O3 -DNDEBUG -fPIC -Wmissing-declarations -Wmissing-noreturn -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wno-array-bounds -Wextra-semi -w -o vendor/hash/CMakeFiles/vendor-hash.dir/sha1/sha1.c.o -c /root/projects/llama.cpp/vendor/hash/sha1/sha1.c",
+  "file": "/root/projects/llama.cpp/vendor/hash/sha1/sha1.c",
+  "output": "vendor/hash/CMakeFiles/vendor-hash.dir/sha1/sha1.c.o"
+},
+{
+  "directory": "/root/projects/llamachat/native/build-linux-pic",
+  "command": "/usr/bin/cc -I/root/projects/llama.cpp/vendor/hash/.. -I/root/projects/llama.cpp/vendor/hash/. -O3 -DNDEBUG -fPIC -Wshadow -Wstrict-prototypes -Wpointer-arith -Wmissing-prototypes -Werror=implicit-int -Werror=implicit-function-declaration -Wall -Wextra -Wpedantic -Wcast-qual -Wno-unused-function -Wdouble-promotion -w -o vendor/hash/CMakeFiles/vendor-hash.dir/sha256/sha256.c.o -c /root/projects/llama.cpp/vendor/hash/sha256/sha256.c",
+  "file": "/root/projects/llama.cpp/vendor/hash/sha256/sha256.c",
+  "output": "vendor/hash/CMakeFiles/vendor-hash.dir/sha256/sha256.c.o"
+}
+]

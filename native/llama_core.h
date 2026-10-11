@@ -17,7 +17,7 @@
 #include <string>
 #include <vector>
 
-namespace llamachat {
+namespace llamacpp {
 
 /** Opaque model + context session. */
 struct Session;
@@ -84,4 +84,4 @@ void release(Session * session);
 /** The llama.cpp build string this library was compiled from. */
 std::string version();
 
-}  // namespace llamachat
+}  // namespace llamacpp

@@ -7,6 +7,9 @@
 #include <jni.h>
 #include <android/log.h>
 
+#include <cstdio>
+#include <cstring>
+#include <mutex>
 #include <string>
 #include <vector>
 
@@ -14,23 +17,41 @@
 
 namespace {
 
+// Optional durable log file. llama.cpp's own warnings and this layer's messages are the
+// first thing anyone needs when an engine misbehaves on a device, and logcat rotates far too
+// fast on a busy phone to rely on. Set from Java via nativeSetLogFile.
+std::mutex g_log_file_mu;
+std::FILE * g_log_file = nullptr;
+
 void android_log_sink(int level, const char * text) {
     int priority = ANDROID_LOG_INFO;
-    if (level >= llamachat::LOG_LEVEL_ERROR) {
+    if (level >= llamacpp::LOG_LEVEL_ERROR) {
         priority = ANDROID_LOG_ERROR;
-    } else if (level == llamachat::LOG_LEVEL_WARN) {
+    } else if (level == llamacpp::LOG_LEVEL_WARN) {
         priority = ANDROID_LOG_WARN;
-    } else if (level == llamachat::LOG_LEVEL_DEBUG) {
+    } else if (level == llamacpp::LOG_LEVEL_DEBUG) {
         priority = ANDROID_LOG_DEBUG;
     }
     __android_log_print(priority, "LlamaJNI", "%s", text);
+
+    std::lock_guard<std::mutex> lock(g_log_file_mu);
+    if (g_log_file != nullptr) {
+        const char * tag = (priority == ANDROID_LOG_ERROR) ? "E"
+                         : (priority == ANDROID_LOG_WARN)  ? "W"
+                         : (priority == ANDROID_LOG_DEBUG) ? "D" : "I";
+        std::fprintf(g_log_file, "[%s] %s", tag, text);
+        if (text[0] != '\0' && text[std::strlen(text) - 1] != '\n') {
+            std::fputc('\n', g_log_file);
+        }
+        std::fflush(g_log_file);
+    }
 }
 
 // llama.cpp's logging is global state, so the sink is installed exactly once.
 void install_log_sink_once() {
     static bool installed = false;
     if (!installed) {
-        llamachat::set_log_sink(android_log_sink);
+        llamacpp::set_log_sink(android_log_sink);
         installed = true;
     }
 }
@@ -44,26 +65,55 @@ std::string to_std_string(JNIEnv * env, jstring s) {
 }
 
 // Builds a java.lang.String from UTF-8 bytes. The (byte[], Charset) constructor is used
-// instead of NewStringUTF because modified UTF-8 cannot carry 4-byte sequences (emoji),
+// rather than NewStringUTF because modified UTF-8 cannot carry 4-byte sequences (emoji),
 // which chat models produce routinely.
+//
+// NOTE ON THE SIGNATURE: it must be "([BLjava/nio/charset/Charset;)V". The neighbouring
+// overload "([BLjava/lang/String;)V" takes a charset *name*; passing a Charset object to it
+// makes the VM read a String reference that is not one, and it dies with a NullPointerException
+// inside String.lookupCharset. That mistake only shows up when the reply is turned into a
+// Java string — i.e. at the very end of a generation, after the streaming already looked fine.
 jstring utf8_to_jstring(JNIEnv * env, const std::string & s) {
     static jclass    string_cls = nullptr;
     static jmethodID ctor       = nullptr;
-    static jstring   utf8_name  = nullptr;
+    static jobject   utf8_name  = nullptr;
 
     if (string_cls == nullptr) {
-        jclass local = env->FindClass("java/lang/String");
-        if (local == nullptr) return nullptr;
-        string_cls = static_cast<jclass>(env->NewGlobalRef(local));
-        env->DeleteLocalRef(local);
-        ctor = env->GetMethodID(string_cls, "<init>", "([BLjava/lang/String;)V");
+        jclass local_string = env->FindClass("java/lang/String");
+        jclass local_charsets = env->FindClass("java/nio/charset/StandardCharsets");
+        if (local_string == nullptr || local_charsets == nullptr) {
+            env->ExceptionClear();
+            return nullptr;
+        }
 
-        jclass cs_cls = env->FindClass("java/nio/charset/StandardCharsets");
-        jfieldID field = env->GetStaticFieldID(cs_cls, "UTF_8", "Ljava/nio/charset/Charset;");
-        jstring name = static_cast<jstring>(env->GetStaticObjectField(cs_cls, field));
-        utf8_name = static_cast<jstring>(env->NewGlobalRef(name));
-        env->DeleteLocalRef(name);
-        env->DeleteLocalRef(cs_cls);
+        jmethodID local_ctor =
+            env->GetMethodID(local_string, "<init>", "([BLjava/nio/charset/Charset;)V");
+        jfieldID utf8_field =
+            env->GetStaticFieldID(local_charsets, "UTF_8", "Ljava/nio/charset/Charset;");
+        if (local_ctor == nullptr || utf8_field == nullptr) {
+            env->ExceptionClear();
+            env->DeleteLocalRef(local_string);
+            env->DeleteLocalRef(local_charsets);
+            return nullptr;
+        }
+
+        jobject local_utf8 = env->GetStaticObjectField(local_charsets, utf8_field);
+        if (local_utf8 == nullptr) {
+            env->ExceptionClear();
+            env->DeleteLocalRef(local_string);
+            env->DeleteLocalRef(local_charsets);
+            return nullptr;
+        }
+
+        // Cache only once every lookup has succeeded, so a failure cannot leave a
+        // half-initialised cache behind that makes every later call fail the same way.
+        ctor       = local_ctor;
+        utf8_name  = env->NewGlobalRef(local_utf8);
+        string_cls = static_cast<jclass>(env->NewGlobalRef(local_string));
+
+        env->DeleteLocalRef(local_utf8);
+        env->DeleteLocalRef(local_charsets);
+        env->DeleteLocalRef(local_string);
     }
 
     jbyteArray bytes = env->NewByteArray(static_cast<jsize>(s.size()));
@@ -114,13 +164,34 @@ void throw_runtime(JNIEnv * env, const std::string & message) {
 extern "C" {
 
 JNIEXPORT jstring JNICALL
-Java_com_saeed_llamachat_core_LlamaBridge_nativeVersion(JNIEnv * env, jclass) {
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeVersion(JNIEnv * env, jclass) {
     install_log_sink_once();
-    return env->NewStringUTF(llamachat::version().c_str());
+    return env->NewStringUTF(llamacpp::version().c_str());
+}
+
+// Redirects llama.cpp's own logging (and this layer's messages) into a file, in addition to
+// logcat. Pass null to stop. Needed because logcat rotates within minutes on a busy device,
+// which leaves nothing behind when an engine problem has to be diagnosed after the fact.
+JNIEXPORT void JNICALL
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeSetLogFile(JNIEnv * env, jclass, jstring j_path) {
+    install_log_sink_once();
+
+    std::lock_guard<std::mutex> lock(g_log_file_mu);
+    if (g_log_file != nullptr) {
+        std::fclose(g_log_file);
+        g_log_file = nullptr;
+    }
+    if (j_path == nullptr) {
+        return;
+    }
+    const std::string path = to_std_string(env, j_path);
+    if (!path.empty()) {
+        g_log_file = std::fopen(path.c_str(), "a");
+    }
 }
 
 JNIEXPORT jlong JNICALL
-Java_com_saeed_llamachat_core_LlamaBridge_nativeLoadModel(JNIEnv * env, jclass,
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeLoadModel(JNIEnv * env, jclass,
                                                           jstring j_path,
                                                           jint n_ctx,
                                                           jint n_threads,
@@ -129,7 +200,7 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeLoadModel(JNIEnv * env, jclass,
 
     const std::string path = to_std_string(env, j_path);
     std::string error;
-    llamachat::Session * session = llamachat::load(path, n_ctx, n_threads, n_gpu_layers, error);
+    llamacpp::Session * session = llamacpp::load(path, n_ctx, n_threads, n_gpu_layers, error);
     if (session == nullptr) {
         throw_runtime(env, error);
         return 0;
@@ -138,14 +209,14 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeLoadModel(JNIEnv * env, jclass,
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_saeed_llamachat_core_LlamaBridge_nativeDescribe(JNIEnv * env, jclass, jlong handle) {
-    llamachat::Session * session = reinterpret_cast<llamachat::Session *>(handle);
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeDescribe(JNIEnv * env, jclass, jlong handle) {
+    llamacpp::Session * session = reinterpret_cast<llamacpp::Session *>(handle);
     if (session == nullptr) return nullptr;
-    return env->NewStringUTF(llamachat::describe(session).c_str());
+    return env->NewStringUTF(llamacpp::describe(session).c_str());
 }
 
 JNIEXPORT jstring JNICALL
-Java_com_saeed_llamachat_core_LlamaBridge_nativeChat(JNIEnv * env, jclass,
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeChat(JNIEnv * env, jclass,
                                                      jlong handle,
                                                      jobjectArray j_roles,
                                                      jobjectArray j_contents,
@@ -157,7 +228,7 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeChat(JNIEnv * env, jclass,
                                                      jint repeat_last_n,
                                                      jlong seed,
                                                      jobject sink) {
-    llamachat::Session * session = reinterpret_cast<llamachat::Session *>(handle);
+    llamacpp::Session * session = reinterpret_cast<llamacpp::Session *>(handle);
     if (session == nullptr) {
         throw_runtime(env, "no model is loaded");
         return nullptr;
@@ -188,7 +259,7 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeChat(JNIEnv * env, jclass,
         }
     }
 
-    llamachat::GenParams params;
+    llamacpp::GenParams params;
     params.max_tokens     = max_tokens;
     params.temperature    = temp;
     params.top_k          = top_k;
@@ -199,7 +270,7 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeChat(JNIEnv * env, jclass,
 
     std::string out;
     std::string error;
-    const bool ok = llamachat::generate(session, roles, contents, params,
+    const bool ok = llamacpp::generate(session, roles, contents, params,
                                         sink != nullptr ? forward_token : nullptr,
                                         &ctx, out, error, nullptr);
     if (!ok) {
@@ -210,8 +281,8 @@ Java_com_saeed_llamachat_core_LlamaBridge_nativeChat(JNIEnv * env, jclass,
 }
 
 JNIEXPORT void JNICALL
-Java_com_saeed_llamachat_core_LlamaBridge_nativeFree(JNIEnv *, jclass, jlong handle) {
-    llamachat::release(reinterpret_cast<llamachat::Session *>(handle));
+Java_com_saeed_llamacpp_LlamaCppBridge_nativeFree(JNIEnv *, jclass, jlong handle) {
+    llamacpp::release(reinterpret_cast<llamacpp::Session *>(handle));
 }
 
 }  // extern "C"
